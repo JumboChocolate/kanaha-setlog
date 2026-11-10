@@ -31,26 +31,33 @@ function buildWidget(entry, img) {
 
   const root = w.addStack();
   root.layoutVertically();
-  root.setPadding(14, 16, 14, 16);
+  root.setPadding(10, 10, 10, 10);
   root.addSpacer();
 
-  const timeTxt = root.addText(entry.time || "");
+  // 文字は暗い帯の上に置く（ホーム画面の単色ティント表示でも読みやすくするため）
+  const band = root.addStack();
+  band.layoutVertically();
+  band.backgroundColor = new Color("#000000", 0.52);
+  band.cornerRadius = 12;
+  band.setPadding(8, 12, 10, 12);
+
+  const timeTxt = band.addText(entry.time || "");
   timeTxt.font = Font.boldSystemFont(30);
   timeTxt.textColor = Color.white();
   timeTxt.shadowColor = new Color("#000000", 0.6);
   timeTxt.shadowRadius = 4;
   timeTxt.shadowOffset = new Point(0, 1);
 
-  const placeTxt = root.addText(entry.place || "");
+  const placeTxt = band.addText(entry.place || "");
   placeTxt.font = Font.boldSystemFont(15);
   placeTxt.textColor = Color.white();
   placeTxt.shadowColor = new Color("#000000", 0.6);
   placeTxt.shadowRadius = 4;
   placeTxt.shadowOffset = new Point(0, 1);
 
-  root.addSpacer(4);
+  band.addSpacer(4);
 
-  const commentTxt = root.addText(entry.comment || "");
+  const commentTxt = band.addText(entry.comment || "");
   commentTxt.font = Font.systemFont(13);
   commentTxt.textColor = Color.white();
   commentTxt.shadowColor = new Color("#000000", 0.6);
